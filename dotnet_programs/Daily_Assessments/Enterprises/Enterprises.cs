@@ -26,8 +26,8 @@ class Programs
                 price = Convert.ToInt32(Console.ReadLine());
             }
             while (price <= 0);
-
             products[i] = price;
+
         }
 
         double sum = 0;
