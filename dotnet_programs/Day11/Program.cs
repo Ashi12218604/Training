@@ -3,25 +3,26 @@ class Programs
 {
     public static void Main()
     {
-//         Console.WriteLine("Creating objects...");
-//         for(int i=0;i<10;i++)
-//         {
-//             Myclass obj=new Myclass();
-//         }
-//         Console.WriteLine("Forcing Garbage Collection....");
-//         GC.Collect();
-//         GC.WaitForPendingFinalizers();
-//         Console.WriteLine("Garbage collection completed");
+        // *** Garbage Collector ***
+    //         Console.WriteLine("Creating objects...");
+    //         for(int i=0;i<10;i++)
+    //         {
+    //             Myclass obj=new Myclass();
+    //         }
+    //         Console.WriteLine("Forcing Garbage Collection....");
+    //         GC.Collect();
+    //         GC.WaitForPendingFinalizers();
+    //         Console.WriteLine("Garbage collection completed");
 
-//     }
-// }
-// class Myclass
-// {
-//     ~Myclass()  //Finalizer(Destructor like method)      // No parameter, no return type
-//     {
-//         Console.WriteLine("FiNALIZER CALLED,OBJECT COLLECTED");
-//     }
-// }
+    //     }
+    // }
+    // class Myclass
+    // {
+    //     ~Myclass()  //Finalizer(Destructor like method)      // No parameter, no return type
+    //     {
+    //         Console.WriteLine("FiNALIZER CALLED,OBJECT COLLECTED");
+    //     }
+    // }
 
 // ***Anonymous.cs*** //
     // Anonymous.Print();
@@ -36,8 +37,25 @@ class Programs
         Console.WriteLine();
 
 // ***Tuples.cs*** //
-    var response=Tuples.ValidateUser("Admin");
-    Console.WriteLine(response.Message);
+    // var response=Tuples.ValidateUser("Admin");
+    // Console.WriteLine(response.Message);
+
+// ***Student.cs*** //
+    // var s = new Student { Id = 1, Name = "Amit" };
+    // Console.WriteLine(s.GetType());
+    // var (sid, sname) = s;
+
+    // Console.WriteLine(sid);
+    // Console.WriteLine(sname);
+
+// ***Evenumbers.cs*** //
+    //  Evennumbers.Filter();
+
+// ***Datashaping.cs*** //
+    //  DataShaping.Run();
+
+// ***Employee.cs*** //
+    EmployeeSort.Sort();
 
 
 }

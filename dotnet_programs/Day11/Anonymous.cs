@@ -15,6 +15,18 @@ public class Anonymous
             Name= "Sneha"
         };
 
+        //*************************************
+        // TUPLE DECONSTRUCTION topic:
+      var person = (Id: 1, Name: "Neha");
+        Console.WriteLine(person.Id);
+           // Tuple deconstruction
+        var (id, name) = person;
+        Console.WriteLine(id);
+        // Getting type
+        Console.WriteLine(id.GetType());
+        Console.WriteLine(person.GetType());
+        //*************************************88
+
         Console.WriteLine("VALUES");
         Console.WriteLine(student1.Item1 + " " + student1.Item2);
         Console.WriteLine(student2.Id + " " + student2.Name);
