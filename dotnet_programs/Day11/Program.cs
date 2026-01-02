@@ -1,0 +1,44 @@
+﻿using System;
+class Programs
+{
+    public static void Main()
+    {
+//         Console.WriteLine("Creating objects...");
+//         for(int i=0;i<10;i++)
+//         {
+//             Myclass obj=new Myclass();
+//         }
+//         Console.WriteLine("Forcing Garbage Collection....");
+//         GC.Collect();
+//         GC.WaitForPendingFinalizers();
+//         Console.WriteLine("Garbage collection completed");
+
+//     }
+// }
+// class Myclass
+// {
+//     ~Myclass()  //Finalizer(Destructor like method)      // No parameter, no return type
+//     {
+//         Console.WriteLine("FiNALIZER CALLED,OBJECT COLLECTED");
+//     }
+// }
+
+// ***Anonymous.cs*** //
+    // Anonymous.Print();
+    // Console.WriteLine();
+
+// ***Multipletuples.cs*** //
+    // var result = MultipleTuples.Calculate(10, 5);
+    //         Console.WriteLine("Sum = " + result.Sum);
+    //         Console.WriteLine("Difference = " + result.Diff);
+    //         Console.WriteLine("Average = " + result.Average);
+
+        Console.WriteLine();
+
+// ***Tuples.cs*** //
+    var response=Tuples.ValidateUser("Admin");
+    Console.WriteLine(response.Message);
+
+
+}
+}
