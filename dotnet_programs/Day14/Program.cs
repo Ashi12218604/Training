@@ -56,15 +56,24 @@ class Programs
 
 
 
-    User user=new User();
-    using(StreamReader reader=new StreamReader("user.txt"))
-    {
-    user.Id=int.Parse(reader.ReadLine());
-    user.Name=reader.ReadLine();
-    }
-    Console.WriteLine($"User Loaded:{user.Id},{user.Name}");
+    // User user=new User();
+    // using(StreamReader reader=new StreamReader("user.txt"))
+    // {
+    // user.Id=int.Parse(reader.ReadLine());
+    // user.Name=reader.ReadLine();
+    // }
+    // Console.WriteLine($"User Loaded:{user.Id},{user.Name}");
 
-  
+
+
+
+User user=new User{Id=2,Name="Bob"};
+using(BinaryWriter writer=new BinaryWriter(File.Open("user.bin",FileMode.Create)))
+        {
+            writer.Write(user.Id);
+            writer.Write(user.Name);
+        }
+  Console.WriteLine("Binary user data saved");
 
     }
 }
