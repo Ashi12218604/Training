@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO.Pipelines;
+using System.IO;
       class User
     {
         public int Id;
@@ -66,7 +67,7 @@ class Programs
 
 
 
-
+//BinaryWriter
 User user=new User{Id=2,Name="Bob"};
 using(BinaryWriter writer=new BinaryWriter(File.Open("user.bin",FileMode.Create)))
         {
@@ -74,6 +75,11 @@ using(BinaryWriter writer=new BinaryWriter(File.Open("user.bin",FileMode.Create)
             writer.Write(user.Name);
         }
   Console.WriteLine("Binary user data saved");
+        using (BinaryReader reader = new BinaryReader(File.Open("user.bin", FileMode.Open)))
+        {
+            Console.WriteLine(reader.ReadInt32());
+            Console.WriteLine(reader.ReadString());
+        }
 
     }
 }

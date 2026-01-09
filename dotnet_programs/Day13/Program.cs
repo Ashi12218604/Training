@@ -70,8 +70,8 @@ class Program
 
         Comparison<int> sortdescending=(a,b) =>b.CompareTo(a);
         Console.WriteLine(sortdescending(5,10));
-Console.WriteLine(sortdescending(10,5));
-Console.WriteLine(sortdescending(5,5));
+        Console.WriteLine(sortdescending(10,5));
+        Console.WriteLine(sortdescending(5,5));
         }
 }
 
