@@ -72,20 +72,26 @@ class Program
         //     serializer.Serialize(fs,user);
         // }
         // Console.WriteLine("XML Serialized");
-        
+        Console.WriteLine("Enter number of students:");
         int n = Convert.ToInt32(Console.ReadLine());
         List<Student> list = new List<Student>();
 
         for (int i = 0; i < n; i++)
         {
             Student s = new Student();
+            Console.WriteLine("Enter Roll Number of student:");
             s.RollNo = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine("Enter Name of student:");
             s.Name = Console.ReadLine();
+        Console.WriteLine("Enter Marks of student:");
             s.Marks = Convert.ToInt32(Console.ReadLine());
-s.SportGrade = Console.ReadLine()[0];
+        Console.WriteLine("Enter Grade of student:");
+            s.SportGrade = Console.ReadLine()[0];
 
             list.Add(s);
         }
+        Console.WriteLine("Eligible name of students are:");
+
         string result=Student.GetEligibleStudents(list,ScholarshipEligibility);
         Console.WriteLine (result);
 
