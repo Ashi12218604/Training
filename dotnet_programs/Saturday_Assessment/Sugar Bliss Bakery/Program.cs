@@ -27,7 +27,7 @@
         choco.Flavour = Console.ReadLine();
          if (!choco.ValidateChocolateFlavour())
         {
-            Console.WriteLine("Invalid flavour");
+            Console.WriteLine("Invalid flavour. Choose Again!");
             return;
         }
 
@@ -36,8 +36,6 @@
 
         Console.WriteLine("Enter the price per unit");
         choco.PricePerUnit = Convert.ToInt32(Console.ReadLine());
-
-       
 
         choco = CalculateDiscountedPrice(choco);
 
