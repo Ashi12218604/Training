@@ -14,17 +14,36 @@ class Program
         // });
         // *******************************************************************************************
         int[] numbers=new int[10];
-;
 for(int i=0;i<numbers.Length;i++)
 numbers[i]=i+1;
 int sum=0;
-Parallel.For(0,numbers.Length,i=>
-{
-    sum+=numbers[i]; //Not thread-safe(for demonstration)
+//*******************************************************************************************
+// Parallel.For(0,numbers.Length,i=>
+// {
+//     sum+=numbers[i]; //Not thread-safe(for demonstration)
             
-});
-Console.WriteLine("SUM:"+sum);
-}
+// });
+// Console.WriteLine("SUM:"+sum);
+//*******************************************************************************************
+
+Parallel.For(0,numbers.Length,() =>0,(i,loopstate,localsum)=>
+{
+            return localsum+numbers[i];
+        },
+        localsum =>
+        {
+            Interlocked.Add(ref sum, localsum);
+        });
+        Console.WriteLine("Sum "+sum);
+//*******************************************************************************************
+// async Task<int> GetDataAsync()
+//         {
+//             await Task.Delay(1000);
+//             return 43;
+//         }
+//         await GetDataAsync();
+   }
+// *******************************************************************************************
     // static void DoWork()
     // {
     //     for(int i=1;i<=5;i++)
