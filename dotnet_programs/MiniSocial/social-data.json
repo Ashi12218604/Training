@@ -1,0 +1,13 @@
+[
+  {
+    "Username": "ashi",
+    "Email": "as@gmail.com",
+    "Following": [],
+    "Posts": [
+      {
+        "Content": "I am sleepy.",
+        "CreatedAt": "2026-01-16T04:40:35.1044475Z"
+      }
+    ]
+  }
+]
