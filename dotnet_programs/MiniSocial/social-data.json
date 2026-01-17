@@ -1,12 +1,24 @@
 [
   {
+    "Username": "arnav",
+    "Email": "ar@gmail.com",
+    "Following": [],
+    "Posts": []
+  },
+  {
     "Username": "ashi",
     "Email": "as@gmail.com",
-    "Following": [],
+    "Following": [
+      "arnav"
+    ],
     "Posts": [
       {
-        "Content": "I am sleepy.",
-        "CreatedAt": "2026-01-16T04:40:35.1044475Z"
+        "Content": "hi",
+        "CreatedAt": "2026-01-16T08:47:08.5168164Z"
+      },
+      {
+        "Content": "good afternoon",
+        "CreatedAt": "2026-01-16T08:47:40.4539545Z"
       }
     ]
   }

@@ -34,10 +34,10 @@ namespace MiniSocialMedia
                     Console.WriteLine("Unexpected Error!!");
                     Console.WriteLine(ex);
                 }
-                Console.WriteLine("Press any key to continue...");
-                Console.ReadKey(true);
-                Console.Clear();
-                Console.WriteLine("=== MiniSocial ===");
+                // Console.WriteLine("Press any key to continue...");
+                // Console.ReadKey(true);
+                // Console.Clear();
+                // Console.WriteLine("=== MiniSocial ===");
             }
         }
 
@@ -45,11 +45,11 @@ namespace MiniSocialMedia
         {
             Console.WriteLine("1. Register");
             Console.WriteLine("2. Login");
-            Console.WriteLine("0. Exit");
+            Console.WriteLine("3. Exit");
             var choice = Console.ReadLine();
             if (choice == "1") Register();
             else if (choice == "2") Login();
-            else if (choice == "0") { SaveData(); Environment.Exit(0); }
+            else if (choice == "9") { SaveData(); Environment.Exit(0); }
             else Console.WriteLine("Invalid choice");
         }
 
@@ -79,7 +79,7 @@ namespace MiniSocialMedia
             _currentUser.OnNewPost += p =>
             {
                 var text = p.Content.Length > 40 ? p.Content.Substring(0, 40) + "..." : p.Content;
-                ConsoleColorWrite(ConsoleColor.Cyan, "[New Post] " + p.Author + " : " + text);
+                Console.WriteLine("[New Post] " + p.Author + " : " + p.Content);
             };
         }
 
