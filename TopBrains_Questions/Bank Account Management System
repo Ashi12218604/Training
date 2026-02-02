@@ -1,0 +1,56 @@
+using System;
+namespace BankSys
+{
+    public class Account
+    {
+        // TODO: Add private fields
+        private string name;
+        private double balance;
+        
+        // TODO: Implement constructor
+        public Account(string name,double initialbalance)
+        {
+            this.name=name;
+            this.balance=initialbalance;
+        }
+        // TODO: Implement deposit method
+        public double deposit(double depositAmount)
+        {
+                balance+=depositAmount;
+                return balance;
+        }            
+        // TODO: Implement getBalance method
+        public double getBalance()
+        {
+            return balance;
+        }
+        
+        // TODO: Implement setName method
+        public void setName(string newName)
+        {
+            this.name=newName;
+        }
+        // TODO: Implement getName method
+        public string getName()
+        {
+            return name;
+        }
+    }
+
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            // Test your implementation here
+        Account account1 = new Account("John Doe", 1250.00);
+            Console.WriteLine(account1.getBalance());
+            Console.WriteLine(account1.getName());
+
+            Account account2 = new Account("Riya Amit Mehta ", 500.00);
+            Console.WriteLine(account2.getBalance());
+            Console.WriteLine(account2.deposit(750.5));
+            Console.WriteLine(account2.getBalance());
+            Console.WriteLine(account2.getName());
+        }
+    }
+}
