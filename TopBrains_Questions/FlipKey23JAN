@@ -1,0 +1,47 @@
+
+using System;
+using System.Text;
+class Solution
+{
+    public static string CleanseAndInvert(string s)
+    {
+        if (string.IsNullOrEmpty(s) || s.Length < 6)
+            return "";
+        foreach (char c in s)
+        {
+            if (!char.IsLetter(c))
+                return "";
+        }
+        s = s.ToLower();
+        StringBuilder sb = new StringBuilder();
+        foreach (char c in s)
+        {
+            if (((int)c) % 2 != 0)
+                sb.Append(c);
+        }
+        char[] arr = sb.ToString().ToCharArray();
+        Array.Reverse(arr);
+        string rs = new string(arr);
+        StringBuilder rsb = new StringBuilder();
+        for (int i = 0; i < rs.Length; i++)
+        {
+            if (i % 2 == 0)
+                rsb.Append(char.ToUpper(rs[i]));
+            else
+                rsb.Append(rs[i]);
+        }
+        return rsb.ToString();
+    }
+    static void Main()
+    {
+        string result = CleanseAndInvert("abcdef");
+        if (result.Length == 0)
+        {
+            Console.WriteLine("invalid");
+        }
+        else
+        {
+            Console.WriteLine("Generated String is: " + result);
+        }
+    }
+}
