@@ -1,6 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using EvenNumber.Core;
-using System;
 
 namespace EvenNumber.Tests
 {
@@ -8,19 +7,13 @@ namespace EvenNumber.Tests
     public class EvenNumberServiceTest
     {
         [TestMethod]
-        public void AcceptEven_WithEvenNumber_ReturnsNumber()
+        public void ReverseString_WithHello_ReturnsOlleh()
         {
             var service = new EvenNumberService();
-            int result = service.AcceptEven(4);
-            Assert.AreEqual(4, result);
+
+            string result = service.ReverseString("hello");
+
+            Assert.AreEqual("olleh", result);
         }
-
-       [TestMethod]
-public void AcceptEven_WithOddNumber_ThrowsException()
-{
-    var service = new EvenNumberService();
-    service.AcceptEven(10);  
-}
-
     }
 }

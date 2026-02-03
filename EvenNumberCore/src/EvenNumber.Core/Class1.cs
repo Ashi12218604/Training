@@ -4,14 +4,28 @@ namespace EvenNumber.Core
 {
     public class EvenNumberService
     {
-        public int AcceptEven(int number)
+        // Sum of first (n-1) integers
+        public int SumOfNIntegers(int number)
         {
-            if (number % 2 != 0)
+            if (number < 0)
             {
-                throw new ArgumentException("Only even numbers allowed");
+                throw new ArgumentException("Number must be non-negative");
             }
 
-            return number;
+            return (number * (number - 1)) / 2;
+        }
+
+        // Reverse a string
+        public string ReverseString(string input)
+        {
+            if (string.IsNullOrEmpty(input))
+            {
+                throw new ArgumentException("Input cannot be null or empty");
+            }
+
+            char[] chars = input.ToCharArray();
+            Array.Reverse(chars);
+            return new string(chars);
         }
     }
 }

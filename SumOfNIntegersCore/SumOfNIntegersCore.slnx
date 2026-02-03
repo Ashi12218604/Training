@@ -1,0 +1,8 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/SumOfNIntegers.Core/SumOfNIntegers.Core.csproj" />
+  </Folder>
+  <Folder Name="/Tests/">
+    <Project Path="Tests/SumOfNIntegers.Tests/SumOfNIntegers.Tests.csproj" />
+  </Folder>
+</Solution>
