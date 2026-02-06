@@ -117,7 +117,8 @@
 //     }
 // }
 
-
+//----------------------------------------------------------------------------------------
+//  printing month wise birthdays after input
 using System;
 using Microsoft.Data.SqlClient;
 using System.Data;
