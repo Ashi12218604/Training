@@ -35,4 +35,23 @@
 
 //     }
 // }
-
+using System;
+using System.Collections.Generic;
+public class Program
+{
+public static Stack<Order> OStack { get; set; } = new Stack<Order>();
+public static void Main(string[] args)
+{
+Order ob=new Order();
+int orderId=Convert.ToInt32(Console.ReadLine());
+string customerName=Console.ReadLine();
+string item=Console.ReadLine();
+ob.AddOrderDetails(orderId, customerName, item);
+Console.WriteLine(ob.GetOrderDetails());
+ob.RemoveOrderDetails();
+  foreach (Order o in OStack)
+    {
+        Console.WriteLine(o.OrderId + " " + o.CustomerName + " " + o.Item);
+    }
+}
+}

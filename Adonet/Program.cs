@@ -13,7 +13,7 @@
 //             try
 //             {
 //                 con.Open();
-//                 Console.WriteLine("✅ Connected Successfully!");
+//                 Console.WriteLine(" Connected Successfully!");
 
 //                 // Query College table
 //                 string query = "SELECT * FROM College";
@@ -22,7 +22,7 @@
 
 //                 using (SqlDataReader reader = cmd.ExecuteReader())
 //                 {
-//                     Console.WriteLine("\n📄 College Table Data:\n");
+//                     Console.WriteLine("\n College Table Data:\n");
 
 //                     while (reader.Read())
 //                     {
@@ -40,7 +40,7 @@
 //             }
 //             catch (Exception ex)
 //             {
-//                 Console.WriteLine("❌ Error: " + ex.Message);
+//                 Console.WriteLine(" Error: " + ex.Message);
 //             }
 //         }
 
@@ -48,8 +48,79 @@
 //         Console.ReadKey();
 //     }
 // }
+
+// ----------------------------------------------------------------------------------------
+// using System;
+// using Microsoft.Data.SqlClient;
+
+// class Program
+// {
+//     static void Main()
+//     {
+//         string connectionString =
+//             "Server=localhost\\SQLEXPRESS;" +
+//             "Database=sqlprograms;" +
+//             "Trusted_Connection=True;" +
+//             "TrustServerCertificate=True;";
+
+//         using (SqlConnection connection = new SqlConnection(connectionString))
+//         {
+//             try
+//             {
+//                 connection.Open();
+//                 Console.WriteLine(" Connection successful!");
+
+//                 Console.Write("Enter Gender (Male/Female): ");
+//                 string gender = Console.ReadLine() ?? "";
+
+//                 string query =
+//                     "SELECT Name, Department, gender " +
+//                     "FROM College " +
+//                     "WHERE gender = @gender";
+
+//                 using (SqlCommand command = new SqlCommand(query, connection))
+//                 {
+//                     command.Parameters.AddWithValue("@gender", gender);
+
+//                     using (SqlDataReader reader = command.ExecuteReader())
+//                     {
+//                         Console.WriteLine("\n Result:\n");
+
+//                         bool found = false;
+
+//                         while (reader.Read())
+//                         {
+//                             found = true;
+
+//                             Console.WriteLine(
+//                                 $"Name: {reader["Name"]}, " +
+//                                 $"Department: {reader["Department"]}, " +
+//                                 $"Gender: {reader["gender"]}"
+//                             );
+//                         }
+
+//                         if (!found)
+//                         {
+//                             Console.WriteLine(" No records found.");
+//                         }
+//                     }
+//                 }
+//             }
+//             catch (Exception ex)
+//             {
+//                 Console.WriteLine("Error: " + ex.Message);
+//             }
+
+//             Console.WriteLine("\nPress any key to exit...");
+//             Console.ReadKey();
+//         }
+//     }
+// }
+
+
 using System;
 using Microsoft.Data.SqlClient;
+using System.Data;
 
 class Program
 {
@@ -61,28 +132,37 @@ class Program
             "Trusted_Connection=True;" +
             "TrustServerCertificate=True;";
 
-        using (SqlConnection connection = new SqlConnection(connectionString))
+        using (SqlConnection con = new SqlConnection(connectionString))
         {
             try
             {
-                connection.Open();
-                Console.WriteLine("✅ Connection successful!");
+                con.Open();
+                Console.WriteLine("Connected Successfully!");
 
-                Console.Write("Enter Gender (Male/Female): ");
-                string gender = Console.ReadLine() ?? "";
+                // Take Month & Year Input
+                Console.Write("Enter Month (1-12): ");
+                int month = int.Parse(Console.ReadLine() ?? "1");
 
-                string query =
-                    "SELECT Name, Department, gender " +
-                    "FROM College " +
-                    "WHERE gender = @gender";
+                Console.Write("Enter Year (YYYY): ");
+                int year = int.Parse(Console.ReadLine() ?? "2026");
 
-                using (SqlCommand command = new SqlCommand(query, connection))
+                // Create a Date (1st day of that month)
+                DateTime selectedDate = new DateTime(year, month, 1);
+
+                Console.WriteLine($"\n Searching birthdays for: {selectedDate:MMMM yyyy}");
+
+                using (SqlCommand cmd =
+                    new SqlCommand("dbo.uspGetBirthdaysInMyMonth", con))
                 {
-                    command.Parameters.AddWithValue("@gender", gender);
+                    cmd.CommandType = CommandType.StoredProcedure;
 
-                    using (SqlDataReader reader = command.ExecuteReader())
+                    // Pass Date Parameter
+                    cmd.Parameters.Add("@month", SqlDbType.Date)
+                                  .Value = selectedDate;
+
+                    using (SqlDataReader reader = cmd.ExecuteReader())
                     {
-                        Console.WriteLine("\n📄 Result:\n");
+                        Console.WriteLine("\n Birthdays:\n");
 
                         bool found = false;
 
@@ -91,22 +171,22 @@ class Program
                             found = true;
 
                             Console.WriteLine(
+                                $"ID: {reader["Id"]}, " +
                                 $"Name: {reader["Name"]}, " +
-                                $"Department: {reader["Department"]}, " +
-                                $"Gender: {reader["gender"]}"
+                                $"DOB: {reader["DOB"]}"
                             );
                         }
 
                         if (!found)
                         {
-                            Console.WriteLine("❌ No records found.");
+                            Console.WriteLine("No birthdays found.");
                         }
                     }
                 }
             }
             catch (Exception ex)
             {
-                Console.WriteLine("❌ Error: " + ex.Message);
+                Console.WriteLine(" Error: " + ex.Message);
             }
 
             Console.WriteLine("\nPress any key to exit...");
