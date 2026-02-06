@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 
 public class LibraryFineCalculator
@@ -36,6 +36,7 @@ public class LibraryFineCalculator
         Console.WriteLine($"User Type: {userTypeName}");
         Console.WriteLine($"Days Late: {daysLate}");
         Console.WriteLine($"Daily Fine Rate: ${fineRate:F2}");
+        Console.WriteLine($"Calculated Fine: ${fine:F2}");
         
        
     }
