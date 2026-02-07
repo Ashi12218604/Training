@@ -198,6 +198,69 @@
 // ---------------------------------------------------------------------------------------------------------------------
 
 // ques: create stored procedure with parameter, test sp many times, add two parameter in c# code
+// using System;
+// using Microsoft.Data.SqlClient;
+// using System.Data;
+// class Program
+// {
+//         static void Main()
+//     {
+//         string connectionString =
+//             "Server=localhost\\SQLEXPRESS;" +
+//             "Database=sqlprograms;" +
+//             "Trusted_Connection=True;" +
+//             "TrustServerCertificate=True;";
+//         using (SqlConnection con = new SqlConnection(connectionString))
+//         {
+//             try
+//             {
+//                 con.Open();
+//                 Console.WriteLine("Connected Successfully!");
+//                 Console.Write("Enter Month (1-12): ");
+//                 int month = int.Parse(Console.ReadLine());
+//                 Console.Write("Enter Department: ");
+//                 string department = Console.ReadLine();
+//                using (SqlCommand cmd =
+//                     new SqlCommand("dbo.uspGetBirthdaysByMonthAndDept", con))
+//                 {
+//                     cmd.CommandType = CommandType.StoredProcedure;
+//                     cmd.Parameters.Add("@Month", SqlDbType.Int).Value = month;
+//                     cmd.Parameters.Add("@Department", SqlDbType.VarChar, 50)
+//                                   .Value = department;
+//                     using (SqlDataReader reader = cmd.ExecuteReader())
+//                     {
+//                         Console.WriteLine("\n Birthdays:\n");
+//                         bool found = false;
+//                         while (reader.Read())
+//                         {
+//                             found = true;
+//                             Console.WriteLine(
+//                                 $"ID: {reader["Id"]}, " +
+//                                 $"Name: {reader["Name"]}, " +
+//                                 $"DOB: {reader["DOB"]}, " +
+//                                 $"Dept: {reader["Department"]}"
+//                             );
+//                         }
+//                         if (!found)
+//                         {
+//                             Console.WriteLine("No records found.");
+//                         }
+//                     }
+//                 }
+//             }
+//             catch (Exception ex)
+//             {
+//                 Console.WriteLine("Error: " + ex.Message);
+//             }
+//             Console.ReadKey();
+//         }
+//     }
+// }
+
+//---------------------------------------------------------------------------------------------------------------
+
+// Q: Gender based total count from College using input and output parameters and stored procedures
+
 using System;
 using Microsoft.Data.SqlClient;
 using System.Data;
@@ -206,68 +269,55 @@ class Program
 {
     static void Main()
     {
-        string connectionString =
+        string cs =
             "Server=localhost\\SQLEXPRESS;" +
             "Database=sqlprograms;" +
             "Trusted_Connection=True;" +
             "TrustServerCertificate=True;";
 
-        using (SqlConnection con = new SqlConnection(connectionString))
+        using (SqlConnection con = new SqlConnection(cs))
         {
             try
             {
                 con.Open();
                 Console.WriteLine("Connected Successfully!");
 
-                // Input
-                Console.Write("Enter Month (1-12): ");
-                int month = int.Parse(Console.ReadLine());
-
-                Console.Write("Enter Department: ");
-                string department = Console.ReadLine();
+                Console.Write("Enter Gender: ");
+                string gender = Console.ReadLine();
 
                 using (SqlCommand cmd =
-                    new SqlCommand("dbo.uspGetBirthdaysByMonthAndDept", con))
+                    new SqlCommand("dbo.uspgetstudentcountbydept", con))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                    // Parameters
-                    cmd.Parameters.Add("@Month", SqlDbType.Int).Value = month;
-                    cmd.Parameters.Add("@Department", SqlDbType.VarChar, 50)
-                                  .Value = department;
+                    // input parameter
+                    cmd.Parameters.Add("@gender",
+                        SqlDbType.NVarChar, 50).Value = gender;
 
-                    using (SqlDataReader reader = cmd.ExecuteReader())
-                    {
-                        Console.WriteLine("\n Birthdays:\n");
+                    // output parameter
+                    SqlParameter p =
+                        new SqlParameter("@studentcount", SqlDbType.Int);
 
-                        bool found = false;
+                    p.Direction = ParameterDirection.Output;
 
-                        while (reader.Read())
-                        {
-                            found = true;
+                    cmd.Parameters.Add(p);
 
-                            Console.WriteLine(
-                                $"ID: {reader["Id"]}, " +
-                                $"Name: {reader["Name"]}, " +
-                                $"DOB: {reader["DOB"]}, " +
-                                $"Dept: {reader["Department"]}"
-                            );
-                        }
+                    // execute
+                    cmd.ExecuteNonQuery();
 
-                        if (!found)
-                        {
-                            Console.WriteLine("No records found.");
-                        }
-                    }
+                    // get output
+                    int count =
+                        Convert.ToInt32(cmd.Parameters["@studentcount"].Value);
+
+                    Console.WriteLine("Count : " + count);
                 }
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Error: " + ex.Message);
+                Console.WriteLine("Error : " + ex.Message);
             }
+
             Console.ReadKey();
         }
     }
 }
-
-
