@@ -119,6 +119,85 @@
 
 //----------------------------------------------------------------------------------------
 //  printing month wise birthdays after input
+// using System;
+// using Microsoft.Data.SqlClient;
+// using System.Data;
+
+// class Program
+// {
+//     static void Main()
+//     {
+//         string connectionString =
+//             "Server=localhost\\SQLEXPRESS;" +
+//             "Database=sqlprograms;" +
+//             "Trusted_Connection=True;" +
+//             "TrustServerCertificate=True;";
+
+//         using (SqlConnection con = new SqlConnection(connectionString))
+//         {
+//             try
+//             {
+//                 con.Open();
+//                 Console.WriteLine("Connected Successfully!");
+
+//                 // Take Month & Year Input
+//                 Console.Write("Enter Month (1-12): ");
+//                 int month = int.Parse(Console.ReadLine() ?? "1");
+
+//                 Console.Write("Enter Year (YYYY): ");
+//                 int year = int.Parse(Console.ReadLine() ?? "2026");
+
+//                 // Create a Date (1st day of that month)
+//                 DateTime selectedDate = new DateTime(year, month, 1);
+
+//                 Console.WriteLine($"\n Searching birthdays for: {selectedDate:MMMM yyyy}");
+
+//                 using (SqlCommand cmd =
+//                     new SqlCommand("dbo.uspGetBirthdaysInMyMonth", con))
+//                 {
+//                     cmd.CommandType = CommandType.StoredProcedure;
+
+//                     // Pass Date Parameter
+//                     cmd.Parameters.Add("@month", SqlDbType.Date)
+//                                   .Value = selectedDate;
+
+//                     using (SqlDataReader reader = cmd.ExecuteReader())
+//                     {
+//                         Console.WriteLine("\n Birthdays:\n");
+
+//                         bool found = false;
+
+//                         while (reader.Read())
+//                         {
+//                             found = true;
+
+//                             Console.WriteLine(
+//                                 $"ID: {reader["Id"]}, " +
+//                                 $"Name: {reader["Name"]}, " +
+//                                 $"DOB: {reader["DOB"]}"
+//                             );
+//                         }
+
+//                         if (!found)
+//                         {
+//                             Console.WriteLine("No birthdays found.");
+//                         }
+//                     }
+//                 }
+//             }
+//             catch (Exception ex)
+//             {
+//                 Console.WriteLine(" Error: " + ex.Message);
+//             }
+
+//             Console.WriteLine("\nPress any key to exit...");
+//             Console.ReadKey();
+//         }
+//     }
+// }
+// ---------------------------------------------------------------------------------------------------------------------
+
+// ques: create stored procedure with parameter, test sp many times, add two parameter in c# code
 using System;
 using Microsoft.Data.SqlClient;
 using System.Data;
@@ -140,26 +219,22 @@ class Program
                 con.Open();
                 Console.WriteLine("Connected Successfully!");
 
-                // Take Month & Year Input
+                // Input
                 Console.Write("Enter Month (1-12): ");
-                int month = int.Parse(Console.ReadLine() ?? "1");
+                int month = int.Parse(Console.ReadLine());
 
-                Console.Write("Enter Year (YYYY): ");
-                int year = int.Parse(Console.ReadLine() ?? "2026");
-
-                // Create a Date (1st day of that month)
-                DateTime selectedDate = new DateTime(year, month, 1);
-
-                Console.WriteLine($"\n Searching birthdays for: {selectedDate:MMMM yyyy}");
+                Console.Write("Enter Department: ");
+                string department = Console.ReadLine();
 
                 using (SqlCommand cmd =
-                    new SqlCommand("dbo.uspGetBirthdaysInMyMonth", con))
+                    new SqlCommand("dbo.uspGetBirthdaysByMonthAndDept", con))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                    // Pass Date Parameter
-                    cmd.Parameters.Add("@month", SqlDbType.Date)
-                                  .Value = selectedDate;
+                    // Parameters
+                    cmd.Parameters.Add("@Month", SqlDbType.Int).Value = month;
+                    cmd.Parameters.Add("@Department", SqlDbType.VarChar, 50)
+                                  .Value = department;
 
                     using (SqlDataReader reader = cmd.ExecuteReader())
                     {
@@ -174,24 +249,25 @@ class Program
                             Console.WriteLine(
                                 $"ID: {reader["Id"]}, " +
                                 $"Name: {reader["Name"]}, " +
-                                $"DOB: {reader["DOB"]}"
+                                $"DOB: {reader["DOB"]}, " +
+                                $"Dept: {reader["Department"]}"
                             );
                         }
 
                         if (!found)
                         {
-                            Console.WriteLine("No birthdays found.");
+                            Console.WriteLine("No records found.");
                         }
                     }
                 }
             }
             catch (Exception ex)
             {
-                Console.WriteLine(" Error: " + ex.Message);
+                Console.WriteLine("Error: " + ex.Message);
             }
-
-            Console.WriteLine("\nPress any key to exit...");
             Console.ReadKey();
         }
     }
 }
+
+
