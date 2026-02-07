@@ -1,6 +1,45 @@
-Hey Folks, 
-This Repository is all about dotnet frameworks and their workings. <br>
-I worked on .Net as language , Sql(SSMS by Microsoft) for server and connected them using Adonet.<br>
-Apart from this the real work includes Unit Testing as well for checking/passing/failing the correct/incorrect/inconsistent data enteredc by user.
+# DotNet, SQL Server, ADO.NET & Unit Testing
 
-THANKYOU FOR VISITING, READING AND INVESTING TIME ! 😊😊
+This repository contains my hands-on practice and projects using:
+
+- C# (.NET Framework / .NET Core)
+- SQL Server (SSMS)
+- ADO.NET (Connected & Disconnected Architecture)
+- Stored Procedures & Triggers
+- Unit Testing (MSTest / NUnit)
+
+## Repository Structure
+
+- Adonet/                → ADO.NET examples (CRUD, SP, Output Params)
+- DigitalWalletSolution/ → Mini project
+- TopBrains_Dotnet_Questions/ → Practice Questions
+- UnitTesting/           → Test cases
+- dotnet_programs/       → Core .NET programs
+- sql_programs/          → SQL queries & procedures
+
+##  Key Features
+
+- Database connectivity using ADO.NET
+- Stored procedures with input/output parameters
+- Connected and disconnected architecture
+- Exception handling
+- Unit testing for validation
+- Real-world SQL practice
+
+##  Purpose
+
+This repository is created for:
+
+- Placement preparation
+- Interview revision
+- Strengthening backend development skills
+
+##  Tech Stack
+
+- Language: C#
+- Database: SQL Server
+- Tools: Visual Studio, SSMS, GitHub
+
+---
+
+Thank you for visiting 😊
