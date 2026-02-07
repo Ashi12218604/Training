@@ -264,7 +264,6 @@
 using System;
 using Microsoft.Data.SqlClient;
 using System.Data;
-
 class Program
 {
     static void Main()
@@ -274,41 +273,27 @@ class Program
             "Database=sqlprograms;" +
             "Trusted_Connection=True;" +
             "TrustServerCertificate=True;";
-
         using (SqlConnection con = new SqlConnection(cs))
         {
             try
             {
                 con.Open();
                 Console.WriteLine("Connected Successfully!");
-
                 Console.Write("Enter Gender: ");
                 string gender = Console.ReadLine();
-
                 using (SqlCommand cmd =
                     new SqlCommand("dbo.uspgetstudentcountbydept", con))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-
-                    // input parameter
-                    cmd.Parameters.Add("@gender",
-                        SqlDbType.NVarChar, 50).Value = gender;
-
-                    // output parameter
+                    cmd.Parameters.Add("@gender", 
+                        SqlDbType.NVarChar, 50).Value = gender;          // input parameter
                     SqlParameter p =
                         new SqlParameter("@studentcount", SqlDbType.Int);
-
-                    p.Direction = ParameterDirection.Output;
-
+                    p.Direction = ParameterDirection.Output;   // output parameter
                     cmd.Parameters.Add(p);
-
-                    // execute
                     cmd.ExecuteNonQuery();
-
-                    // get output
                     int count =
                         Convert.ToInt32(cmd.Parameters["@studentcount"].Value);
-
                     Console.WriteLine("Count : " + count);
                 }
             }
@@ -316,7 +301,6 @@ class Program
             {
                 Console.WriteLine("Error : " + ex.Message);
             }
-
             Console.ReadKey();
         }
     }
