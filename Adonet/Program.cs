@@ -261,12 +261,103 @@
 
 // Q: Gender based total count from College using input and output parameters and stored procedures
 
+// using System;
+// using Microsoft.Data.SqlClient;
+// using System.Data;
+// class Program
+// {
+//     static void Main()
+//     {
+//         string cs =
+//             "Server=localhost\\SQLEXPRESS;" +
+//             "Database=sqlprograms;" +
+//             "Trusted_Connection=True;" +
+//             "TrustServerCertificate=True;";
+//         using (SqlConnection con = new SqlConnection(cs))
+//         {
+//             try
+//             {
+//                 con.Open();
+//                 Console.WriteLine("Connected Successfully!");
+//                 Console.Write("Enter Gender: ");
+//                 string gender = Console.ReadLine();
+//                 using (SqlCommand cmd =
+//                     new SqlCommand("dbo.uspgetstudentcountbydept", con))
+//                 {
+//                     cmd.CommandType = CommandType.StoredProcedure;
+//                     cmd.Parameters.Add("@gender", 
+//                         SqlDbType.NVarChar, 50).Value = gender;          // input parameter
+//                     SqlParameter p =
+//                         new SqlParameter("@studentcount", SqlDbType.Int);
+//                     p.Direction = ParameterDirection.Output;   // output parameter
+//                     cmd.Parameters.Add(p);
+//                     cmd.ExecuteNonQuery();
+//                     int count =
+//                         Convert.ToInt32(cmd.Parameters["@studentcount"].Value);
+//                     Console.WriteLine("Count : " + count);
+//                 }
+//             }
+//             catch (Exception ex)
+//             {
+//                 Console.WriteLine("Error : " + ex.Message);
+//             }
+//             Console.ReadKey();
+//         }
+//     }
+// }
+//----------------------------------------------------------------------------------------------------------------------------
+
+// Q: Execute the Non Query Command Reader -- (Insert, Update, Delete)
+    // using System;
+    // using Microsoft.Data.SqlClient;
+
+    // class Program
+    // {    static void Main()
+    //     {
+    //         string connectionString =
+    //             "Server=localhost\\SQLEXPRESS;" +
+    //             "Database=sqlprograms;" +
+    //             "Trusted_Connection=True;" +
+    //             "TrustServerCertificate=True;";
+
+    //         // Create Connection
+    //         using (SqlConnection con = new SqlConnection(connectionString))
+    //         {
+    //             try
+    //             {
+    //                 con.Open();
+    //                 Console.WriteLine("Connected Successfully!");
+    //                 string query =
+    //                 "INSERT INTO College (Id, Name,Location, Department, PhoneNo, Gender) " +
+    //                 "VALUES (21, 'Anushka', 'Delhi','CSE', 9234,'Female')";
+
+    //                 SqlCommand cmd = new SqlCommand(query, con);
+    //                 // Execute NonQuery
+    //                 int rows = cmd.ExecuteNonQuery();
+    //                 Console.WriteLine("Rows Affected: " + rows);
+    //             }
+    //             catch (Exception ex)
+    //             {
+    //                 Console.WriteLine("Error: " + ex.Message);
+    //             }
+    //         }
+    //         Console.ReadKey();
+    //     }
+    // }
+//--------------------------------------------------------------------------------------------------------------------------------------
+
+/* Q: 1. Get the total count of hostel students
+    if (hostelst count>5)
+    {
+    delete one/more student based on yjr category}
+    else
+   {
+   show all the records}*/
+
 using System;
 using Microsoft.Data.SqlClient;
-using System.Data;
 class Program
-{
-    static void Main()
+{    static void Main()
     {
         string cs =
             "Server=localhost\\SQLEXPRESS;" +
@@ -278,30 +369,51 @@ class Program
             try
             {
                 con.Open();
-                Console.WriteLine("Connected Successfully!");
-                Console.Write("Enter Gender: ");
-                string gender = Console.ReadLine();
-                using (SqlCommand cmd =
-                    new SqlCommand("dbo.uspgetstudentcountbydept", con))
+                string countQuery =
+                    "SELECT COUNT(*) FROM studentscsharp";
+                SqlCommand countCmd = new SqlCommand(countQuery, con);
+                int totalCount =(int)countCmd.ExecuteScalar();
+                Console.WriteLine("Total Students: " + totalCount);
+                if (totalCount > 5)
                 {
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add("@gender", 
-                        SqlDbType.NVarChar, 50).Value = gender;          // input parameter
-                    SqlParameter p =
-                        new SqlParameter("@studentcount", SqlDbType.Int);
-                    p.Direction = ParameterDirection.Output;   // output parameter
-                    cmd.Parameters.Add(p);
-                    cmd.ExecuteNonQuery();
-                    int count =
-                        Convert.ToInt32(cmd.Parameters["@studentcount"].Value);
-                    Console.WriteLine("Count : " + count);
+                    Console.WriteLine("Deleted students");
+                    string deleteQuery = "DELETE TOP (2) FROM studentscsharp";
+                    SqlCommand deleteCmd =new SqlCommand(deleteQuery, con);
+                    int deleted =deleteCmd.ExecuteNonQuery();
+                    Console.WriteLine("Deleted Rows: " + deleted);
+                    ShowAllStudents(con);
+                }
+                else
+                {
+                    Console.WriteLine("\n Students data:\n");
+                    ShowAllStudents(con);
                 }
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Error : " + ex.Message);
+                Console.WriteLine("Error: " + ex.Message);
             }
-            Console.ReadKey();
         }
+        Console.ReadKey();
+    }
+        static void ShowAllStudents(SqlConnection con)
+    {
+        string query ="SELECT * FROM studentscsharp";
+        SqlCommand cmd =
+            new SqlCommand(query, con);
+        SqlDataReader reader =cmd.ExecuteReader();
+        Console.WriteLine("\nRemaining Students:\n");
+        while (reader.Read())
+        {
+            Console.WriteLine(
+                "Id: " + reader["Id"] +
+                ", Name: " + reader["Name"] +
+                ", Dept: " + reader["Department"] +
+                ", Gender: " + reader["Gender"] +
+                ", Location: " + reader["Location"]
+            );
+        }
+        reader.Close();
     }
 }
+
