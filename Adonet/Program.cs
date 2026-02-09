@@ -372,14 +372,14 @@ class Program
                 string countQuery =
                     "SELECT COUNT(*) FROM studentscsharp";
                 SqlCommand countCmd = new SqlCommand(countQuery, con);
-                int totalCount =(int)countCmd.ExecuteScalar();
+                int totalCount =(int)countCmd.ExecuteScalar();  // Scalar -- because single aggregated value
                 Console.WriteLine("Total Students: " + totalCount);
                 if (totalCount > 5)
                 {
                     Console.WriteLine("Deleted students");
                     string deleteQuery = "DELETE TOP (2) FROM studentscsharp";
                     SqlCommand deleteCmd =new SqlCommand(deleteQuery, con);
-                    int deleted =deleteCmd.ExecuteNonQuery();
+                    int deleted =deleteCmd.ExecuteNonQuery();   // Non- Query --  because Insert , Delete , Update
                     Console.WriteLine("Deleted Rows: " + deleted);
                     ShowAllStudents(con);
                 }
@@ -401,7 +401,7 @@ class Program
         string query ="SELECT * FROM studentscsharp";
         SqlCommand cmd =
             new SqlCommand(query, con);
-        SqlDataReader reader =cmd.ExecuteReader();
+        SqlDataReader reader =cmd.ExecuteReader();    //  // Execute Reader-- because all records had to printed
         Console.WriteLine("\nRemaining Students:\n");
         while (reader.Read())
         {
