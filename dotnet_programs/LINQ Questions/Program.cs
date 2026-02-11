@@ -1,42 +1,26 @@
-﻿// using System;
-// using System.Collections.Generic;
-// using System.Linq;
-// // class Program
-// // {
-// //     public static void Main(String[] args)
-// //     {
-// //         int[] numbers={1,2,3,4,5,6,7,8,9};
-// //         // var evennumbers=
-// //         // from n in numbers
-// //         // where n%2==0
-// //         // select n;
-// //         var evennumbers=numbers.Where(n=>n%2==0);
-// //         Console.WriteLine("Query output");
-// //         foreach (var n in evennumbers)
-// //         {
-// //             Console.WriteLine(n);
-// //         }
-// //     }
-// // }
+﻿// Ques: Even numbers
 
+        // using System;
+        // using System.Collections.Generic;
+        // using System.Linq;
+        // class Program
+        // {
+        //     public static void Main(String[] args)
+        //     {
+        //         int[] numbers={1,2,3,4,5,6,7,8,9};
+        //         // var evennumbers=
+        //         // from n in numbers
+        //         // where n%2==0
+        //         // select n;
+        //         var evennumbers=numbers.Where(n=>n%2==0);
+        //         Console.WriteLine("Query output");
+        //         foreach (var n in evennumbers)
+        //         {
+        //             Console.WriteLine(n);
+        //         }
+        //     }
+        // }
 
-// //Max Number
- 
-//  class Program
-// {
-//     public static void Main(String[] args)
-//     {
-//         List<int> numbers=new List<int>{10,25,30,45,60};
-//         var result=numbers.Where(n=>n>30);
-//         foreach(var v in result)
-//         {
-//             Console.WriteLine(n);
-//         }
-//         Console.WriteLine("\n2. Select (Square)");
-//         var squares=numbers.Select(n=>n*n);
-//         foreach()
-//     }
-// }
 
 
 using System;
@@ -130,3 +114,74 @@ class Program
         Console.WriteLine();
     }
 }
+
+
+
+
+
+
+//Inner Join
+
+//using System;
+//using System.Collections.Generic;
+//using System.Linq;
+
+//namespace LinqInnerJoinDemo
+//{
+//    class Program
+//    {
+//        static void Main(string[] args)
+//        {
+//            // Students collection
+//            List<Student> students = new List<Student>
+//            {
+//                new Student { StudentId = 1, Name = "Ravi" },
+//                new Student { StudentId = 2, Name = "Anu" },
+//                new Student { StudentId = 3, Name = "Kumar" }
+//            };
+
+//            // Courses collection
+//            List<Course> courses = new List<Course>
+//            {
+//                new Course { StudentId = 1, CourseName = "C#" },
+//                new Course { StudentId = 1, CourseName = "SQL" },
+//                new Course { StudentId = 2, CourseName = ".NET" }
+//            };
+
+//            // INNER JOIN using LINQ (Query Syntax)
+//            var result =
+//                from s in students
+//                join c in courses
+//                    on s.StudentId equals c.StudentId
+//                select new
+//                {
+//                    StudentName = s.Name,
+//                    CourseName = c.CourseName
+//                };
+
+//            // Print result
+//            Console.WriteLine("INNER JOIN RESULT:\n");
+
+//            foreach (var item in result)
+//            {
+//                Console.WriteLine($"{item.StudentName} - {item.CourseName}");
+//            }
+
+//            Console.ReadLine();
+//        }
+//    }
+
+//    // Student class
+//    class Student
+//    {
+//        public int StudentId { get; set; }
+//        public string Name { get; set; }
+//    }
+
+//    // Course class
+//    class Course
+//    {
+//        public int StudentId { get; set; }
+//        public string CourseName { get; set; }
+//    }
+//}
