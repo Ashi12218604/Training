@@ -188,25 +188,25 @@
 
 
 
-// LINQ Questions based on List Scenario
-using System;
-using System.Collections.Generic;
-using System.Linq;
-class Program
-{
-    public static void Main(String[] args)
-    {
-        List<string> ls=new List<string>{"Mari","Shiva","Arjun","Daniel","University"};
-        var c=ls.Count();
-        var morethan4=ls.Where(x => x.Length > 4).ToList();
-        var startswitha=ls.Where(n=>n.StartsWith("A",StringComparison.OrdinalIgnoreCase)).ToList();
-        var firstTwo = ls.Select(x => x.Substring(0, 2)).ToList();
-        Console.WriteLine("Total Count" + c);
-        Console.WriteLine("\nMore than 4 characters");
-        morethan4.ForEach(Console.WriteLine);
-        Console.WriteLine("\nStarts with A");
-        startswitha.ForEach(Console.WriteLine);
-        Console.WriteLine("\nFirst 2 characters");
-        firstTwo.ForEach(Console.WriteLine);
-    }
-}
+// // LINQ Questions based on List Scenario
+// using System;
+// using System.Collections.Generic;
+// using System.Linq;
+// class Program
+// {
+//     public static void Main(String[] args)
+//     {
+//         List<string> ls=new List<string>{"Mari","Shiva","Arjun","Daniel","University"};
+//         var c=ls.Count();
+//         var morethan4=ls.Where(x => x.Length > 4).ToList();
+//         var startswitha=ls.Where(n=>n.StartsWith("A",StringComparison.OrdinalIgnoreCase)).ToList();
+//         var firstTwo = ls.Select(x => x.Substring(0, 2)).ToList();
+//         Console.WriteLine("Total Count" + c);
+//         Console.WriteLine("\nMore than 4 characters");
+//         morethan4.ForEach(Console.WriteLine);
+//         Console.WriteLine("\nStarts with A");
+//         startswitha.ForEach(Console.WriteLine);
+//         Console.WriteLine("\nFirst 2 characters");
+//         firstTwo.ForEach(Console.WriteLine);
+//     }
+// }
