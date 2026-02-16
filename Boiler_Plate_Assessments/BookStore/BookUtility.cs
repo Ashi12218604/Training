@@ -5,10 +5,10 @@ namespace BookStoreApplication
     public class BookUtility
     {
         private Book _book;
-
         public BookUtility(Book book)
         {
             // TODO: Assign book object
+               _book=book;
         }
 
         public void GetBookDetails()
@@ -16,6 +16,7 @@ namespace BookStoreApplication
             // TODO:
             // Print format:
             // Details: <BookId> <Title> <Price> <Stock>
+            Console.WriteLine((_book.Id)+" "+(_book.Title)+" "+(_book.Price)+" "+(_book.Stock));
         }
 
         public void UpdateBookPrice(int newPrice)
@@ -24,6 +25,8 @@ namespace BookStoreApplication
             // Validate new price
             // Update price
             // Print: Updated Price: <newPrice>
+            _book.Price=newPrice;
+            Console.WriteLine(_book.Price);
         }
 
         public void UpdateBookStock(int newStock)
@@ -32,6 +35,8 @@ namespace BookStoreApplication
             // Validate new stock
             // Update stock
             // Print: Updated Stock: <newStock>
+            _book.Stock=newStock;
+            Console.WriteLine(_book.Stock);
         }
     }
 }
