@@ -162,39 +162,286 @@
 
 // C# Program to remove elements
 // from a stack
-using System;
-using System.Collections.Generic;
+// using System;
+// using System.Collections.Generic;
 
-class Geeks
+// class Geeks
+// {
+//     public static void Main(string[] args)
+//     {
+//         // Initialize a stack
+//         Stack<string> s = new Stack<string>();
+
+//         // Inserting elements into the s using Push()
+//         s.Push("Geeks");
+//         s.Push("For");
+//         s.Push("Geeks");
+//         s.Push("For");
+
+//         // Initial stack
+//         Console.WriteLine("Initial stack: ");
+//         foreach (var item in s)
+//         {
+//             Console.WriteLine(item);
+//         }
+
+//         // Removing the top element 
+//         // from the stack
+//         s.Pop();
+
+//         // Final s after removal
+//         Console.WriteLine("\nUpdated stack after Pop:");
+//         foreach (string item in s)
+//         {
+//             Console.WriteLine(item);
+//         }
+//         Console.ReadLine();
+//     }
+// }
+
+
+
+
+// Reverse
+
+// using System;
+// using System.Collections;
+// public class Program
+// {
+//     public static void Main(string[] args)
+//     {
+//         string input="Hello World";
+//         string[] words=input.Split(' ');
+//         for(int i=0;i<words.Length;i++)
+//         {
+//             char[] arr=words[i].ToCharArray();
+//             Array.Reverse(arr);
+//             words[i]=new string(arr);
+//         }
+//        Console.WriteLine(string.Join(" ",words)); 
+//     }
+// }
+
+
+//Second Highest
+
+// using System;
+// class Program
+// {
+//     public static void Main(string[] args)
+//     {
+//         int[] salary={1000,2000,4000,1500};
+//         // Array.Sort(salary);
+//         // Console.WriteLine(salary[salary.Length-2]);
+//         int sh=salary.Distinct().OrderByDescending(x=>x).Skip(1).First();
+//         Console.WriteLine(sh);
+//     }
+// }
+
+// Student attendance analyser
+
+// using System;
+// using System.Collections.Generic;
+// using System.Collections;
+// public class Student_Attendance
+// {
+//         public static Dictionary<int,bool?> validate(string input)
+//     {
+//         Dictionary<int, bool?> dict=new Dictionary<int, bool?>();
+//             foreach (var v in input.Split(','))
+//         {
+//             var colon = v.Split(':');
+//             string idc=colon[0];
+//             if (!idc.All(char.IsDigit))
+//                 continue;
+//             int id = Convert.ToInt32(idc);
+//             string value=colon.Length>1?colon[1]:"";
+//             if (string.IsNullOrEmpty(value))
+//                 dict[id]=null;
+//             else if (value=="Present")
+//                 dict[id] = true;
+//             else
+//                 dict[id] = false;
+//         }
+//         return dict;
+//     }
+// public static void Main(string[] args)
+// {
+//     string input="101:Present,102:Absent,103:Present,104:,105:Present,ABC:Present,106:Absent";
+//     var attendance=validate(input);
+//             foreach (var s in attendance)
+//         {
+//             if (s.Value == true)
+//                 Console.WriteLine($"{s.Key} -> Present");
+//             else if (s.Value == false)
+//                 Console.WriteLine($"{s.Key} -> Absent");
+//             else
+//                 Console.WriteLine($"{s.Key} -> Not Marked");
+//         }
+// }
+// }
+
+
+//Even number using Linq
+// using System;
+// using System.Linq;
+// public class Program
+// {
+//     public static void Main(string[] args)
+//     {
+//         int[] n={1,2,3,4,5,6,7,8,9};
+//         var n2=n.Where(n=>n%2==0);
+//         Console.WriteLine(String.Join(",",n2));
+
+//     }
+// }
+
+
+// Exception handling
+    // using  System;
+    // public class InvalidAgeException:Exception
+    // {
+    //     public InvalidAgeException(string message):base(message)
+    //     {
+            
+    //     }
+    // }
+    // class Program
+    // {
+    //     public static void Main(string[] args)
+    //     {
+    //         int age=16;
+    //         try
+    //         {
+    //         if(age<18)
+    //         throw new InvalidAgeException("Age must be 18");
+    //         }
+    //         catch (InvalidAgeException ex)
+    //         {
+    //             Console.WriteLine(ex.Message);
+    //         }
+
+    //     }
+    // }
+
+
+
+    // Discount
+    //     using System;
+    //     public class Discount
+    // {
+    //     public static void Main(string[] args)
+    //     {
+    //         // double p;
+    //         double o=double.Parse(Console.ReadLine());
+    //         if(o>5000)
+    //         {
+    //     o=o-(0.10*o);
+    //         }
+    //     double p=o;
+    //         Console.WriteLine(p);
+
+
+    //     }
+    // }
+
+
+// Delegate for addition and multiplication of two numbers
+        // using System;
+        // class Program{
+        // public delegate int Operation(int a, int b);
+        //     static int Add(int a, int b)
+        //     {
+        //         return a+b;
+        //     }
+        //     static int Multi(int a, int b)
+        //     {
+        //         return a*b;
+        //     }
+        // public static void Main(string[] args)
+        //     {
+        //         Operation op;
+        //         op=Add;
+        //         Console.WriteLine("Additions is:"+ op(5,3));
+        //         op=Multi;
+        //         Console.WriteLine("Multiplication is:"+ op(7,7));
+        //     }
+
+        // }
+
+
+        //Multi cast delegate
+// using System;
+
+// class Program
+// {
+//     public delegate void Notify();
+
+//     static void SendEmail()
+//     {
+//         Console.WriteLine("Email Sent");
+//     }
+
+//     static void SendSMS()
+//     {
+//         Console.WriteLine("SMS Sent");
+//     }
+
+//     static void SendWhatsApp()
+//     {
+//         Console.WriteLine("WhatsApp Message Sent");
+//     }
+
+//     static void Main()
+//     {
+//         Notify notify = SendEmail;
+//         notify += SendSMS;
+//         notify += SendWhatsApp;
+
+//         notify();
+//     }
+// }
+
+
+
+//Fun and Action
+    // using System;
+    // class Program
+    // {
+    //     public static void Main(string[] args)
+    //     {
+    //         Func<int,int> square=n=>n*n;
+    //         Console.WriteLine(square(7));
+    //     }
+    // }
+
+
+//Action
+        // using System;
+        // public class Program
+        // {
+        //     public static void Main(string[] args)
+        //     {
+        //     Action<string> print= msg=>Console.WriteLine(msg);
+        //     print("Hello Ayush");
+        // }
+        // }
+
+
+//Reverse String
+using System;
+public class Program
 {
     public static void Main(string[] args)
     {
-        // Initialize a stack
-        Stack<string> s = new Stack<string>();
-
-        // Inserting elements into the s using Push()
-        s.Push("Geeks");
-        s.Push("For");
-        s.Push("Geeks");
-        s.Push("For");
-
-        // Initial stack
-        Console.WriteLine("Initial stack: ");
-        foreach (var item in s)
+        string input="Ayush is Gay";
+        string[] str=input.Split(" ");
+        for(int i=0;i<str.Length;i++)
         {
-            Console.WriteLine(item);
+            char[] arr=str[i].ToCharArray();
+            Array.Reverse(arr);
+            str[i]=new string(arr);
         }
-
-        // Removing the top element 
-        // from the stack
-        s.Pop();
-
-        // Final s after removal
-        Console.WriteLine("\nUpdated stack after Pop:");
-        foreach (string item in s)
-        {
-            Console.WriteLine(item);
-        }
-        Console.ReadLine();
+        Console.WriteLine(String.Join(" ",str));
     }
 }
