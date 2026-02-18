@@ -428,20 +428,75 @@
         // }
 
 
-//Reverse String
-using System;
-public class Program
+// //Reverse String
+// using System;
+// public class Program
+// {
+//     public static void Main(string[] args)
+//     {
+//         string input="Ayush is Gay";
+//         string[] str=input.Split(" ");
+//         for(int i=0;i<str.Length;i++)
+//         {
+//             char[] arr=str[i].ToCharArray();
+//             Array.Reverse(arr);
+//             str[i]=new string(arr);
+//         }
+//         Console.WriteLine(String.Join(" ",str));
+//     }
+// }
+  
+
+// Pallindrome
+// using System;
+// class Program
+// {
+//     public static void Main(String[] args)
+//     {
+//         string s=Console.ReadLine();
+//         string p=s;
+//         string w="";
+//         for(int i=s.Length-1;i>=0;i--)
+//         {
+//             w+=s[i];
+//         }
+//         if(p.Equals(w))
+//         Console.WriteLine("Palindrome");
+//     }
+// }
+ 
+
+// Remove Duplicate
+    // using System;
+    // using System.Collections.Generic;
+    // using System.Linq;
+    // public class Program
+    // {
+    //     public static void Main(string[] args)
+    //     {
+    //         string input=Console.ReadLine();
+    //     //     HashSet<char> sh=new HashSet<char>(input);
+    //     //   foreach(char v in sh)
+    //         // {
+    //         //     Console.WriteLine(v);
+    //         // }
+    //         string result=new string(input.Distinct().ToArray());
+    //         Console.WriteLine(result);
+        
+    //     }
+    // }
+
+
+    // Find longest word in sentence
+    using System;
+    using System.Linq;
+    class Program
 {
     public static void Main(string[] args)
     {
-        string input="Ayush is Gay";
-        string[] str=input.Split(" ");
-        for(int i=0;i<str.Length;i++)
-        {
-            char[] arr=str[i].ToCharArray();
-            Array.Reverse(arr);
-            str[i]=new string(arr);
-        }
-        Console.WriteLine(String.Join(" ",str));
+        string input="Sabeer is a good boy";
+        string longest=input.Split(' ').OrderByDescending(w=>w.Length).First();
+        Console.WriteLine(longest);
     }
+
 }
