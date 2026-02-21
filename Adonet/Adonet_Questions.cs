@@ -615,7 +615,7 @@ for the first time in disconnected architecture we need to connect with the serv
     using System.Data;
     using Microsoft.Data.SqlClient;
 
-class Program
+class Program1
 {
     static void Main()
     {
@@ -661,3 +661,5 @@ class Program
         Console.WriteLine("CRUD operations completed successfully");
     }
 }
+
+

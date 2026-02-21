@@ -1,9 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
-using MVCOutputSetup.Models;
+using MVAdonet_Age.Models;
 using System.Diagnostics;
-using System.Numerics;
 
-namespace MVCOutputSetup.Controllers
+namespace MVAdonet_Age.Controllers
 {
     public class HomeController : Controller
     {
@@ -15,11 +14,6 @@ namespace MVCOutputSetup.Controllers
         public IActionResult Privacy()
         {
             return View();
-        }
-        public IActionResult StudentData(int m1, int m2, int m3)
-        {
-            int x = m1 + m2+ m3;
-            return View(x);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
