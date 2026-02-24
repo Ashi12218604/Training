@@ -1,0 +1,16 @@
+﻿@model MVC_CRUDLPU.Models.Student
+
+<h2>Delete Student</h2>
+
+<h4>Are you sure you want to delete this?</h4>
+
+<div>
+    <strong>Name:</strong> @Model.Name
+</div>
+
+<form asp-action="Delete" method="post">
+    @Html.AntiForgeryToken()
+    <input type="hidden" asp-for="Id" />
+    <button type="submit">Yes, Delete</button>
+    <a asp-action="Index">Cancel</a>
+</form>

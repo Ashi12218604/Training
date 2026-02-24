@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Data;
 using Microsoft.Data.SqlClient;
-public class Program
+public class InserStudent
 {
     static void Main(string[] args)
     {
