@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Page 4</title>
+</head>
+<body>
+
+<h2>Final Payment Page</h2>
+
+<p id="details"></p>
+
+<button id="payNow">Pay Now</button>
+
+<script>
+let id = sessionStorage.getItem("userId");
+let name = sessionStorage.getItem("userName");
+
+if (!id || !name) {
+    window.location.href = "page1.html";
+}
+
+document.getElementById("details").innerHTML =
+"ID: " + id + "<br>Name: " + name;
+
+document.getElementById("payNow").addEventListener("click", function() {
+    alert("Payment Successful!");
+    sessionStorage.clear(); // clear session after payment
+    window.location.href = "page1.html";
+});
+</script>
+
+</body>
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Page 2</title>
+</head>
+<body>
+
+<h2 id="welcome"></h2>
+
+<h3>Select a Mobile</h3>
+
+<button onclick="selectProduct('iPhone')">iPhone</button>
+<button onclick="selectProduct('Samsung')">Samsung</button>
+<button onclick="selectProduct('OnePlus')">OnePlus</button>
+
+<script>
+let name = sessionStorage.getItem("userName");
+
+if (!name) {
+    window.location.href = "page1.html";
+}
+
+document.getElementById("welcome").innerHTML = 
+"Welcome " + name + "! Please select a product.";
+
+function selectProduct(product) {
+    sessionStorage.setItem("selectedProduct", product);
+    window.location.href = "page3.html";
+}
+</script>
+
+</body>
+</html>

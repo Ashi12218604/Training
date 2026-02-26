@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Page 3</title>
+</head>
+<body>
+
+<h2>Payment Page</h2>
+
+<p id="product"></p>
+
+<button id="paymentBtn">Proceed to Payment</button>
+
+<script>
+let product = sessionStorage.getItem("selectedProduct");
+
+if (!product) {
+    window.location.href = "page2.html";
+}
+
+document.getElementById("product").innerHTML = 
+"Selected Product: " + product;
+
+document.getElementById("paymentBtn").addEventListener("click", function() {
+    window.location.href = "page4.html";
+});
+</script>
+
+</body>
+</html>
