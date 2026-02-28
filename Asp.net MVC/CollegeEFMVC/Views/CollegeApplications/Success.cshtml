@@ -1,0 +1,19 @@
+﻿@model CollegeEFMVC.Models.CollegeApplication
+
+<div class="card shadow p-4">
+    <h3 class="text-success">Application Submitted Successfully</h3>
+
+    <img src="@Model.PhotoPath" width="150" class="rounded mb-3" />
+
+    <p><b>Name:</b> @Model.FullName</p>
+    <p><b>Email:</b> @Model.Email</p>
+    <p><b>Phone:</b> @Model.Phone</p>
+    <p><b>Aadhaar:</b> @Model.AadhaarNumber</p>
+    <p><b>DOB:</b> @Model.DateOfBirth.ToShortDateString()</p>
+    <p><b>Course:</b> @Model.Course</p>
+    <p><b>Percentage:</b> @Model.Percentage</p>
+    <p><b>Address:</b> @Model.Address</p>
+
+    <a asp-action="Index" class="btn btn-primary">Back to List</a>
+    <a asp-action="Edit" asp-route-id="@Model.ApplicationId" class="btn btn-warning">Edit</a>
+</div>

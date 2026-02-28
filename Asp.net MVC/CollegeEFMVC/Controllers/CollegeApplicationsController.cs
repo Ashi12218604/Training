@@ -8,19 +8,23 @@ namespace CollegeEFMVC.Controllers
     public class CollegeApplicationsController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly IWebHostEnvironment _env;
 
-        public CollegeApplicationsController(ApplicationDbContext context)
+        public CollegeApplicationsController(
+            ApplicationDbContext context,
+            IWebHostEnvironment env)
         {
             _context = context;
+            _env = env;
         }
 
-        // GET: CollegeApplications
+        // ================= INDEX =================
         public async Task<IActionResult> Index()
         {
             return View(await _context.CollegeApplications.ToListAsync());
         }
 
-        // GET: CollegeApplications/Details/5
+        // ================= DETAILS =================
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null) return NotFound();
@@ -33,56 +37,87 @@ namespace CollegeEFMVC.Controllers
             return View(application);
         }
 
-        // GET: CollegeApplications/Create
+        // ================= CREATE (GET) =================
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: CollegeApplications/Create
+        // ================= CREATE (POST) =================
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(CollegeApplication model)
         {
-            // 🔹 AGE VALIDATION (Backend – cannot be bypassed)
+            // ---------- AGE VALIDATION ----------
             int age = DateTime.Today.Year - model.DateOfBirth.Year;
-            if (model.DateOfBirth > DateTime.Today.AddYears(-age))
-                age--;
+            if (model.DateOfBirth > DateTime.Today.AddYears(-age)) age--;
 
             if (age < 18)
-            {
                 ModelState.AddModelError("DateOfBirth", "Applicant must be at least 18 years old");
-            }
 
-            // 🔹 EMAIL UNIQUENESS CHECK
+            // ---------- UNIQUENESS CHECKS ----------
             if (await _context.CollegeApplications.AnyAsync(x => x.Email == model.Email))
-            {
-                ModelState.AddModelError("Email", "This email is already registered");
-            }
+                ModelState.AddModelError("Email", "Email already registered");
 
-            // 🔹 PHONE UNIQUENESS CHECK
             if (await _context.CollegeApplications.AnyAsync(x => x.Phone == model.Phone))
+                ModelState.AddModelError("Phone", "Phone number already registered");
+
+            if (await _context.CollegeApplications.AnyAsync(x => x.AadhaarNumber == model.AadhaarNumber))
+                ModelState.AddModelError("AadhaarNumber", "Aadhaar already registered");
+
+            // ---------- PHOTO VALIDATION ----------
+            if (model.PhotoFile != null)
             {
-                ModelState.AddModelError("Phone", "This phone number is already registered");
+                var allowedTypes = new[] { "image/jpeg", "image/png" };
+
+                if (!allowedTypes.Contains(model.PhotoFile.ContentType))
+                    ModelState.AddModelError("PhotoFile", "Only JPG or PNG allowed");
+
+                if (model.PhotoFile.Length > 2 * 1024 * 1024)
+                    ModelState.AddModelError("PhotoFile", "Max photo size is 2 MB");
             }
 
             if (!ModelState.IsValid)
                 return View(model);
 
-            try
+            // ---------- SAVE PHOTO ----------
+            if (model.PhotoFile != null)
             {
-                _context.Add(model);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                string uploadDir = Path.Combine(_env.WebRootPath, "uploads");
+                Directory.CreateDirectory(uploadDir);
+
+                string fileName = Guid.NewGuid() + Path.GetExtension(model.PhotoFile.FileName);
+                string filePath = Path.Combine(uploadDir, fileName);
+
+                using var stream = new FileStream(filePath, FileMode.Create);
+                await model.PhotoFile.CopyToAsync(stream);
+
+                model.PhotoPath = "/uploads/" + fileName;
             }
-            catch (DbUpdateException)
+            string uploadDir = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/uploads");
+
+            if (!Directory.Exists(uploadDir))
             {
-                ModelState.AddModelError("", "Unable to save record. Please check unique fields.");
-                return View(model);
+                Directory.CreateDirectory(uploadDir);
             }
+
+            _context.Add(model);
+            await _context.SaveChangesAsync();
+
+            // 👉 Redirect to Success Page
+            return RedirectToAction("Success", new { id = model.ApplicationId });
         }
 
-        // GET: CollegeApplications/Edit/5
+        // ================= SUCCESS PAGE =================
+        public async Task<IActionResult> Success(int id)
+        {
+            var application = await _context.CollegeApplications.FindAsync(id);
+            if (application == null) return NotFound();
+
+            return View(application);
+        }
+
+        // ================= EDIT (GET) =================
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null) return NotFound();
@@ -93,7 +128,7 @@ namespace CollegeEFMVC.Controllers
             return View(application);
         }
 
-        // POST: CollegeApplications/Edit/5
+        // ================= EDIT (POST) =================
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, CollegeApplication model)
@@ -101,29 +136,25 @@ namespace CollegeEFMVC.Controllers
             if (id != model.ApplicationId)
                 return NotFound();
 
-            // 🔹 AGE CHECK
+            // ---------- AGE ----------
             int age = DateTime.Today.Year - model.DateOfBirth.Year;
-            if (model.DateOfBirth > DateTime.Today.AddYears(-age))
-                age--;
+            if (model.DateOfBirth > DateTime.Today.AddYears(-age)) age--;
 
             if (age < 18)
-            {
                 ModelState.AddModelError("DateOfBirth", "Applicant must be at least 18 years old");
-            }
 
-            // 🔹 EMAIL DUPLICATE (exclude current record)
+            // ---------- DUPLICATE CHECK (EXCLUDING SELF) ----------
             if (await _context.CollegeApplications.AnyAsync(
                 x => x.Email == model.Email && x.ApplicationId != model.ApplicationId))
-            {
-                ModelState.AddModelError("Email", "This email is already registered");
-            }
+                ModelState.AddModelError("Email", "Email already registered");
 
-            // 🔹 PHONE DUPLICATE (exclude current record)
             if (await _context.CollegeApplications.AnyAsync(
                 x => x.Phone == model.Phone && x.ApplicationId != model.ApplicationId))
-            {
-                ModelState.AddModelError("Phone", "This phone number is already registered");
-            }
+                ModelState.AddModelError("Phone", "Phone already registered");
+
+            if (await _context.CollegeApplications.AnyAsync(
+                x => x.AadhaarNumber == model.AadhaarNumber && x.ApplicationId != model.ApplicationId))
+                ModelState.AddModelError("AadhaarNumber", "Aadhaar already registered");
 
             if (!ModelState.IsValid)
                 return View(model);
@@ -141,7 +172,7 @@ namespace CollegeEFMVC.Controllers
             }
         }
 
-        // GET: CollegeApplications/Delete/5
+        // ================= DELETE =================
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null) return NotFound();
@@ -154,7 +185,6 @@ namespace CollegeEFMVC.Controllers
             return View(application);
         }
 
-        // POST: CollegeApplications/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)

@@ -1,0 +1,11 @@
+<input type="file" id="f">
+<button onclick="check()">Upload</button>
+<p id="s"></p>
+<script>
+function check(){
+ var file=f.files[0];
+ if(!file){ s.innerHTML="Select file"; return; }
+ var mb=file.size/1024/1024;
+ s.innerHTML = mb>1 ? "Too large" : "Accepted";
+}
+</script>
