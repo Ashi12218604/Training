@@ -177,18 +177,190 @@
 
 
 
+// using System;
+// using System.Text.RegularExpressions;
+// public class Prog
+// {
+// public static void Main(string[] args)
+// {
+//   int n=Convert.ToInt32(Console.ReadLine());
+//     // string p=@"^(EMP\-(HR|IT|FIN|ADM)\-([1-9][0-9][0-9][0-9]))$";
+//     string p=@"^([a-z]{4,})([0-9]{3})@company\.org$";
+//   for(int i=0;i<n;i++)
+// {
+
+//     string s=Console.ReadLine();
+  
+
+//     //    string w=@"^[A-Za-z][0-9A-Za-z]*@[A-Za-z]+\.(com|org)$";
+//   // string n=@"^(TXN)-\d{6}\|(\d{4})-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])\|(INR|USD|EUR)\|\d{1,6}\.\d{2}\|(SUCCESS|FAIL|PENDING)$";
+
+// // string p=  @"^(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9]?[0-9])\.
+//           // (25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9]?[0-9])\.
+//           // (25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9]?[0-9])\.
+//           // (25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9]?[0-9])$";
+        
+
+//    if(Regex.IsMatch(s,p))
+
+//     Console.WriteLine("valid");
+//     else 
+//       Console.WriteLine("invalid");
+// }
+// }
+//  }
+
+
+// using System;
+// class Prog
+// {
+// public static void Main(string[] args)
+//     {
+//         string s=Console.ReadLine();
+//         string[] parts=s.Split('.');
+//         if(parts.Length!=4)
+//         {
+//              Console.WriteLine("Invalid");
+//         return ;
+//         }
+//         foreach(string p in parts)
+//         {
+//           if(!int.TryParse(p, out int num)) 
+//           {     Console.WriteLine("Invalid");
+//           return ; 
+//           }
+//           if(num<0 || num>255)
+//           {     Console.WriteLine("Invalid");
+//           return ;
+//           }
+//         }
+//      Console.WriteLine("valid");
+//     }
+// }
+
+// using System;
+// using System.Collections.Generic;
+// using System.Collections;
+// public static class PlaylistManager
+// {
+//     public static LinkedList<string> playlist=new LinkedList<string>();
+//     public static HashSet<string> songs=new HashSet<string>();
+//   public static int addSong(string songId)
+//   {
+//     if(!songs.Contains(songId))
+//     {
+//       playlist.AddLast(songId);
+//       songs.Add(songId);
+//     }
+//     return 1;
+//   }
+//   public static int removeSong(string songId)
+//   {
+//     if(songs.Contains(songId))
+//     {
+//       playlist.Remove(songId);
+//       songs.Remove(songId);
+//     }
+//     return 1;
+//   }
+//   public static int moveToTop(string songId)
+//   {
+//     if(songs.Contains(songId))
+//     {
+//       playlist.Remove(songId);
+//       playlist.AddFirst(songId);
+//     }
+//     return 1;
+//   }
+//   public static String getPlaylistOrder()
+//   {
+//     if(playlist.Count==0)
+//     {
+//     return "Empty Playlists";
+//     }
+//    return string.Join(" ",playlist);
+//   }
+//     public static int processCommands(System.IO.TextReader input,int N)
+//   {
+//     for(int i=0;i<N;i++)
+//     {
+//     string inp=input.ReadLine();
+//     string[] cmd=inp.Split(' ');
+//     if(cmd[0]=="ADD")
+//     {
+//       addSong(cmd[1]);
+//     }
+//     else if (cmd[0]=="REMOVE")
+//     removeSong(cmd[1]);
+//     else if (cmd[0]=="TOP")
+//     moveToTop(cmd[1]);
+//     else if (cmd[0]=="PRINT")
+//     Console.WriteLine(getPlaylistOrder());
+//     }
+//     return 1;
+//   }
+//       public static void Main(string[] args)
+//     {
+//         int N = int.Parse(Console.ReadLine());
+//         processCommands(Console.In, N);
+//     }
+//   }
+
+
+
+// using System;
+// using System.Collections.Generic;
+// using System.Collections;
+// using System.Text.RegularExpressions;
+// class REG
+// {
+//   public static void Main(string[] args)
+//   {
+    
+//     int n=Convert.ToInt32(Console.ReadLine());
+//     string p=@"^[a-z]{3,}\.[a-z]{3,}\d{4}@(hr|it|finance|admin)\.company\.com$";
+
+//     for(int i=0;i<n;i++)
+//     {
+//       string input=Console.ReadLine();
+//     // string p= @"^[0-9A-Fa-f]{1,4}\:[0-9A-Fa-f]{1,4}\:
+//     // [0-9A-Fa-f]{1,4}\:[0-9A-Fa-f]{1,4}\:[0-9A-Fa-f]{1,4}\:
+//     // [0-9A-Fa-f]{1,4}\:[0-9A-Fa-f]{1,4}\:[0-9A-Fa-f]{1,4}\::[A-F|0-9]{1}[A-F]{1}\:[A-F|0-9]{1}[A-F]{1}\:[A-F|0-9]{1}[A-F]{1}\:[A-F|0-9]{1}[A-F]{1}\:[A-F|0-9]{1}[A-F]{1}
+//     // \:[A-F|0-9]{1}[A-F]{1}$";
+//         // string p = @"^[0-9A-Fa-f]{1,4}(\:[0-9A-Fa-f]{1,4}){7}\::([0-9A-F]{2}:){5}[0-9A-F]{2}$";
+//     if(Regex.IsMatch(input,p))
+//     Console.WriteLine("Valid");
+//     else
+//     {
+//       Console.WriteLine("Invalid");
+//     }
+
+//   }
+// }
+// }
+
+
 using System;
-using System.Text.RegularExpressions;
+using System.Collections;
 public class Prog
 {
-public static void Main(string[] args)
-{
-    string s=Console.ReadLine();
-   string w=@"^[A-Za-z][0-9A-Za-z]*@[A-Za-z]+\.(com|org)$";
-   if(Regex.IsMatch(s,w))
+  public static void Main(string[] args)
+  {
+    string input=Console.ReadLine();
+    string w="";
+    Console.WriteLine(input);
+    if(input.Length>4)
+    {
+    foreach(char c in input)
+    {
+      if (c==' ')
+      break;
+      int p=(int)c;
+      int t=p-input.Length;
+      w+=(char)t;
+    }
+    Console.WriteLine(w);
+    }
 
-    Console.WriteLine("valid");
-    else 
-      Console.WriteLine("invalid");
-}
+  }
 }

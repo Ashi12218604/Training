@@ -1,0 +1,21 @@
+﻿@model IEnumerable<OnetoMany.Models.Student>
+
+<h2>Students</h2>
+
+<a href="/Student/Create">Add Student</a>
+
+<table border="1">
+    <tr>
+        <th>Name</th>
+        <th>Department</th>
+    </tr>
+
+    @foreach (var s in Model)
+    {
+        <tr>
+            <td>@s.Name</td>
+            <td>@s.Department.DepartmentName</td>
+        </tr>
+    }
+
+</table>
