@@ -22,13 +22,16 @@ namespace CollegeAPI.Services
                 Age = dto.Age
             };
 
+            // Save student first
             _context.StudentsTs.Add(student);
-            _context.SaveChanges(); // generate StudentId
+            _context.SaveChanges();
 
+            // Create hostel record
             Hostel hostel = new Hostel
             {
                 StudentId = student.StudentIdNum,
-                RoomNumber = dto.RoomNumber
+                RoomNumber = dto.RoomNumber,
+                RoomType = dto.RoomType
             };
 
             _context.Hostels.Add(hostel);
@@ -37,16 +40,17 @@ namespace CollegeAPI.Services
             return student;
         }
 
-        // Update Hostel Room
+        // Update Room + RoomType
         public Hostel? UpdateRoom(UpdateRoomDTO dto)
         {
             var hostel = _context.Hostels
-                .FirstOrDefault(x => x.StudentId == dto.StudentId);
+                .FirstOrDefault(h => h.StudentId == dto.StudentId);
 
             if (hostel == null)
                 return null;
 
             hostel.RoomNumber = dto.RoomNumber;
+            hostel.RoomType = dto.RoomType;
 
             _context.Hostels.Update(hostel);
             _context.SaveChanges();
@@ -58,13 +62,13 @@ namespace CollegeAPI.Services
         public bool DeleteStudent(int studentId)
         {
             var student = _context.StudentsTs
-                .FirstOrDefault(x => x.StudentIdNum == studentId);
+                .FirstOrDefault(s => s.StudentIdNum == studentId);
 
             if (student == null)
                 return false;
 
             var hostel = _context.Hostels
-                .FirstOrDefault(x => x.StudentId == studentId);
+                .FirstOrDefault(h => h.StudentId == studentId);
 
             if (hostel != null)
             {
@@ -72,13 +76,12 @@ namespace CollegeAPI.Services
             }
 
             _context.StudentsTs.Remove(student);
-
             _context.SaveChanges();
 
             return true;
         }
 
-        // Get All Hostel Records
+        // Get all hostel students
         public List<Hostel> GetHostelStudents()
         {
             return _context.Hostels
@@ -86,7 +89,7 @@ namespace CollegeAPI.Services
                 .ToList();
         }
 
-        // Get All College Students
+        // Get all college students
         public List<StudentsT> GetAllStudents()
         {
             return _context.StudentsTs.ToList();
