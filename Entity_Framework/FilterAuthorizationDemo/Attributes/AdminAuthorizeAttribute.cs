@@ -9,7 +9,7 @@ namespace FilterAuthorizationDemo.Attributes
         {
             var role = context.HttpContext.Request.Headers["role"];
 
-            if (role != "admin")
+            if (role != "admin" && role != "mari")
             {
                 context.Result = new UnauthorizedResult();
             }
