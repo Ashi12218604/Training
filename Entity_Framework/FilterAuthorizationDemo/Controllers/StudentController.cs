@@ -10,7 +10,7 @@ namespace FilterAuthorizationDemo.Controllers
         [HttpGet]
         public IActionResult GetStudents()
         {
-            return Ok(new List<string> { "Ashi", "Sanjana", "Aryan","Mari" });
+            return Ok(new List<string> { "Ashi", "Sanjana", "Aryan" });
         }
 
         [AdminAuthorize]
