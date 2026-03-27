@@ -340,27 +340,66 @@
 // }
 
 
-using System;
-using System.Collections;
-public class Prog
-{
-  public static void Main(string[] args)
-  {
-    string input=Console.ReadLine();
-    string w="";
-    Console.WriteLine(input);
-    if(input.Length>4)
-    {
-    foreach(char c in input)
-    {
-      if (c==' ')
-      break;
-      int p=(int)c;
-      int t=p-input.Length;
-      w+=(char)t;
-    }
-    Console.WriteLine(w);
-    }
+// using System;
+// using System.Collections;
+// public class Prog
+// {
+//   public static void Main(string[] args)
+//   {
+//     string input=Console.ReadLine();
+//     string w="";
+//     Console.WriteLine(input);
+//     if(input.Length>4)
+//     {
+//     foreach(char c in input)
+//     {
+//       if (c==' ')
+//       break;
+//       int p=(int)c;
+//       int t=p-input.Length;
+//       w+=(char)t;
+//     }
+//     Console.WriteLine(w);
+//     }
 
-  }
+//   }
+// }
+
+using System;
+using System.Collections.Generic;
+using System.Text.RegularExpressions;
+
+class REG
+{
+    public static void Main(string[] args)
+    {
+        int n = Convert.ToInt32(Console.ReadLine());
+        List<int> results = new List<int>();
+
+        string p = @"^[A-Za-z]{1}[A-Za-z0-9$*%!@_]{1,}\d{1}$";
+
+        for (int i = 0; i < n; i++)
+        {
+            string input = Console.ReadLine();
+
+            if (input.Length < 3)
+            {
+                results.Add(0);
+            }
+            else if (Regex.IsMatch(input, p))
+            {
+                results.Add(1);
+            }
+            else
+            {
+                results.Add(0);
+            }
+        }
+
+        // Print all outputs together
+      foreach (int res in results)
+        {
+            Console.WriteLine(res);
+        }
+    }
 }

@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="ApiGateway/ApiGateway.csproj" Id="4f03ac0d-a315-4185-9861-b69a8d69f0f1" />
+  <Project Path="IdentityService/IdentityService.csproj" Id="736859b3-c293-45c9-882a-d6c1bf631b76" />
+</Solution>

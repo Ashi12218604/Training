@@ -1,0 +1,21 @@
+<Solution>
+  <Folder Name="/AuthService/">
+    <Project Path="AuthService.API/AuthService.API.csproj" Id="12c9649e-1e2d-4555-a35a-b77972e140a7" />
+    <Project Path="AuthService.Application/AuthService.Application.csproj" Id="8b97a635-abb6-4f78-94b8-964cbfd77d24" />
+    <Project Path="AuthService.Domain/AuthService.Domain.csproj" Id="756d7c04-8dc2-4b8e-ba8c-1895d6784df0" />
+    <Project Path="AuthService.Infrastructure/AuthService.Infrastructure.csproj" Id="9b58c414-549a-4cdf-bc3d-a29912498cca" />
+  </Folder>
+  <Folder Name="/OrderService/">
+    <Project Path="OrderService.API/OrderService.API.csproj" Id="1f964281-ed03-4605-9429-81e5cad35aea" />
+    <Project Path="OrderService.Application/OrderService.Application.csproj" Id="ccc0fdfd-ef9e-488e-8575-7943a484fa65" />
+    <Project Path="OrderService.Domain/OrderService.Domain.csproj" Id="1c6c4d04-3f9c-4d08-ac70-8d2d55b33fad" />
+    <Project Path="OrderService.Infrastructure/OrderService.Infrastructure.csproj" Id="170c25ec-7568-49ad-a551-228801ddeefc" />
+  </Folder>
+  <Folder Name="/ProductService/">
+    <Project Path="ProductService.API/ProductService.API.csproj" />
+    <Project Path="ProductService.Application/ProductService.Application.csproj" />
+    <Project Path="ProductService.Domain/ProductService.Domain.csproj" />
+    <Project Path="ProductService.Infrastructure/ProductService.Infrastructure.csproj" />
+  </Folder>
+  <Project Path="ApiGateway/ApiGateway.csproj" Id="3cb5e144-566b-4327-be48-7e064f927c29" />
+</Solution>
