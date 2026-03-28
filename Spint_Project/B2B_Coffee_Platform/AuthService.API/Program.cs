@@ -6,6 +6,8 @@ using AuthService.Infrastructure.Repositories;
 using AuthService.Infrastructure.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using AuthService.Domain.Entities;
+using AuthService.Domain.Enums;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Text;
@@ -24,7 +26,7 @@ builder.Services.AddScoped<IJwtTokenService, JwtTokenService>();
 builder.Services.AddMediatR(cfg =>
     cfg.RegisterServicesFromAssembly(typeof(LoginCommand).Assembly));
 
-// ─── 4. JWT Authentication ─────────────────────────────────────────────────────
+// ─── 4. JWT Authentication & CORS ──────────────────────────────────────────────
 var jwtKey = builder.Configuration["Jwt:Key"] ?? throw new InvalidOperationException("JWT Key missing");
 var jwtIssuer = builder.Configuration["Jwt:Issuer"] ?? throw new InvalidOperationException("JWT Issuer missing");
 var jwtAudience = builder.Configuration["Jwt:Audience"] ?? throw new InvalidOperationException("JWT Audience missing");
@@ -43,6 +45,17 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtKey))
         };
     });
+
+// 👇 ADDED: CORS Policy so Angular can talk to the API
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAngularClient", policy =>
+    {
+        policy.WithOrigins("http://localhost:4200") // Angular's default port
+              .AllowAnyHeader()
+              .AllowAnyMethod();
+    });
+});
 
 builder.Services.AddAuthorization();
 builder.Services.AddControllers();
@@ -64,7 +77,6 @@ builder.Services.AddSwaggerGen(c =>
         Scheme = "Bearer",
         BearerFormat = "JWT",
         In = ParameterLocation.Header,
-        // FIX: Updated description so users don't type "Bearer " twice
         Description = "Paste your JWT token here. DO NOT type 'Bearer ' before it. Swagger adds it automatically."
     });
 
@@ -91,10 +103,8 @@ using (var scope = app.Services.CreateScope())
         var db = services.GetRequiredService<AuthDbContext>();
         var userRepo = services.GetRequiredService<IUserRepository>();
 
-        // Apply pending migrations automatically
         db.Database.Migrate();
 
-        // If no users exist, seed the Superadmin
         bool hasUsers = await userRepo.AnyUsersExistAsync(CancellationToken.None);
         if (!hasUsers)
         {
@@ -105,7 +115,7 @@ using (var scope = app.Services.CreateScope())
                 email: "superadmin@coffeeroastery.com",
                 passwordHash: BCrypt.Net.BCrypt.HashPassword(superAdminPassword),
                 role: UserRole.Superadmin,
-                createdByUserId: null // Ensure your AppUser constructor accepts null here!
+                createdByUserId: null
             );
 
             await userRepo.AddAsync(superadmin, CancellationToken.None);
@@ -127,6 +137,10 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+// 👇 ADDED: Apply the CORS policy BEFORE Authentication!
+app.UseCors("AllowAngularClient");
+
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();

@@ -6,7 +6,7 @@ namespace AuthService.Domain.Interfaces
     {
         Task<AppUser?> GetByEmailAsync(string email, CancellationToken cancellationToken);
         Task AddAsync(AppUser user, CancellationToken cancellationToken);
-
+        Task<IEnumerable<AppUser>> GetAllAsync(CancellationToken cancellationToken);
         // Used at startup to check if Superadmin seed is needed
         Task<bool> AnyUsersExistAsync(CancellationToken cancellationToken);
     }

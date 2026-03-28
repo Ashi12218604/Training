@@ -33,5 +33,13 @@ namespace AuthService.Infrastructure.Repositories
         {
             return await _context.Users.AnyAsync(cancellationToken);
         }
+
+        // 👇 THIS IS THE NEW METHOD THAT FIXES YOUR ERROR 👇
+        public async Task<IEnumerable<AppUser>> GetAllAsync(CancellationToken cancellationToken)
+        {
+            return await _context.Users
+                .AsNoTracking() // Makes the query much faster since we are just reading data!
+                .ToListAsync(cancellationToken);
+        }
     }
 }

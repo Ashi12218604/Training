@@ -1,9 +1,11 @@
 using AuthService.Application.Commands;
+using AuthService.Application.Queries; // <-- Added for CQRS
 using AuthService.Domain.Enums;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
+using System.IdentityModel.Tokens.Jwt; // <-- Cleaner using statement
 
 namespace AuthService.API.Controllers
 {
@@ -47,7 +49,7 @@ namespace AuthService.API.Controllers
             {
                 // Read the calling user's identity from the JWT token
                 var requestingUserIdStr = User.FindFirstValue(ClaimTypes.NameIdentifier)
-                    ?? User.FindFirstValue(System.IdentityModel.Tokens.Jwt.JwtRegisteredClaimNames.Sub);
+                    ?? User.FindFirstValue(JwtRegisteredClaimNames.Sub); // Much cleaner now
 
                 var requestingUserRoleStr = User.FindFirstValue(ClaimTypes.Role);
 
@@ -78,8 +80,20 @@ namespace AuthService.API.Controllers
                 return Conflict(new { message = ex.Message });
             }
         }
+
+        // ──────────────────────────────────────────────────────────────────────────
+        // GET /api/auth/users  — PROTECTED (CQRS Query we just built)
+        // ──────────────────────────────────────────────────────────────────────────
+        [HttpGet("users")]
+        [Authorize]
+        public async Task<IActionResult> GetUsers()
+        {
+            var query = new GetUsersQuery();
+            var users = await _mediator.Send(query);
+            return Ok(users);
+        }
     }
 
-    // ─── Request DTO (separate from the MediatR command for cleanliness) ──────────
+    // ─── Request DTO ──────────────────────────────────────────────────────────────
     public record RegisterRequest(string FullName, string Email, string Password, UserRole RoleToAssign);
 }
