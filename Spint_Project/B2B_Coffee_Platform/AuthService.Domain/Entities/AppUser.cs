@@ -1,3 +1,4 @@
+using System;
 using AuthService.Domain.Enums;
 
 namespace AuthService.Domain.Entities
@@ -10,17 +11,21 @@ namespace AuthService.Domain.Entities
         public string PasswordHash { get; private set; }
         public UserRole Role { get; private set; }
 
-        // Who created this user? (Superadmin creates Admins, Admins create Clients)
+        // Who created this user? (Superadmin creates Admins. If Client self-registers, this is null)
         public Guid? CreatedByUserId { get; private set; }
 
         public bool IsActive { get; private set; }
+
+        // --- NEW PROPERTY FOR REGISTRATION FLOW ---
+        public bool IsApproved { get; private set; }
+
         public DateTime CreatedAt { get; private set; }
 
-        // Required by EF Core – private so nothing can create an empty/invalid user
+        // Required by EF Core
         private AppUser() { }
 
         public AppUser(string fullName, string email, string passwordHash,
-                       UserRole role, Guid? createdByUserId)
+                       UserRole role, Guid? createdByUserId, bool isApproved = false) // <-- Added isApproved default
         {
             Id = Guid.NewGuid();
             FullName = fullName;
@@ -29,6 +34,7 @@ namespace AuthService.Domain.Entities
             Role = role;
             CreatedByUserId = createdByUserId;
             IsActive = true;
+            IsApproved = isApproved; // <-- Set the flag
             CreatedAt = DateTime.UtcNow;
         }
 
@@ -36,6 +42,12 @@ namespace AuthService.Domain.Entities
         public void Deactivate()
         {
             IsActive = false;
+        }
+
+        // --- NEW BEHAVIOR: Approve a pending client ---
+        public void Approve()
+        {
+            IsApproved = true;
         }
     }
 }

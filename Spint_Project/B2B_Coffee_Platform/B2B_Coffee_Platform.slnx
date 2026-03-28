@@ -5,6 +5,24 @@
     <Project Path="AuthService.Domain/AuthService.Domain.csproj" Id="756d7c04-8dc2-4b8e-ba8c-1895d6784df0" />
     <Project Path="AuthService.Infrastructure/AuthService.Infrastructure.csproj" Id="9b58c414-549a-4cdf-bc3d-a29912498cca" />
   </Folder>
+  <Folder Name="/DeliveryService/">
+    <Project Path="DeliveryService.API/DeliveryService.API.csproj" Id="0418161b-45b7-4bed-a460-451294f8e6c3" />
+    <Project Path="DeliveryService.Application/DeliveryService.Application.csproj" Id="d5346c3e-a7bd-467b-8367-c1e01b85ddb7" />
+    <Project Path="DeliveryService.Domain/DeliveryService.Domain.csproj" Id="8c7972b5-7369-4054-b109-2eea10ebc792" />
+    <Project Path="DeliveryService.Infrastructure/DeliveryService.Infrastructure.csproj" Id="4d048705-a79e-48b8-ac3e-04ae73bc648f" />
+  </Folder>
+  <Folder Name="/InventoryService/">
+    <Project Path="InventoryService.API/InventoryService.API.csproj" Id="4f6b97ef-99b7-4077-aec7-5113ad23d9d7" />
+    <Project Path="InventoryService.Application/InventoryService.Application.csproj" Id="c503f6f1-ac3b-4f6b-8bfc-81bc3c337cc7" />
+    <Project Path="InventoryService.Domain/InventoryService.Domain.csproj" Id="274f522e-3ecc-4909-91c5-87b10a2069b9" />
+    <Project Path="InventoryService.Infrastructure/InventoryService.Infrastructure.csproj" Id="2c1d49d0-bb19-4b7b-a439-0464b084801e" />
+  </Folder>
+  <Folder Name="/NotificationService/">
+    <Project Path="NotificationService.API/NotificationService.API.csproj" Id="27f02cce-3e37-4c7c-a4fd-0859d77bd8b8" />
+    <Project Path="NotificationService.Application/NotificationService.Application.csproj" Id="8d644981-afce-4fa8-a3d5-8577c755d93a" />
+    <Project Path="NotificationService.Domain/NotificationService.Domain.csproj" Id="a3c4a297-4723-4f19-ba97-3f31e855506a" />
+    <Project Path="NotificationService.Infrastructure/NotificationService.Infrastructure.csproj" Id="e4a7d0a8-e151-4ee4-883b-346cde1c707f" />
+  </Folder>
   <Folder Name="/OrderService/">
     <Project Path="OrderService.API/OrderService.API.csproj" Id="1f964281-ed03-4605-9429-81e5cad35aea" />
     <Project Path="OrderService.Application/OrderService.Application.csproj" Id="ccc0fdfd-ef9e-488e-8575-7943a484fa65" />

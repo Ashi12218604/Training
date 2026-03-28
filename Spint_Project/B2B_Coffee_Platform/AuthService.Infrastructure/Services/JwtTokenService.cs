@@ -1,7 +1,6 @@
-using AuthService.Application.Commands;
+using AuthService.Application.Interfaces;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
-using AuthService.Application.Interfaces;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
@@ -19,8 +18,8 @@ namespace AuthService.Infrastructure.Services
 
         public string GenerateToken(Guid userId, string email, string role)
         {
-            var key = new SymmetricSecurityKey(
-                Encoding.UTF8.GetBytes(_config["Jwt:Key"]!));
+            var keyString = _config["Jwt:Key"] ?? throw new ArgumentNullException("Jwt:Key is missing from config");
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(keyString));
 
             var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
@@ -35,10 +34,10 @@ namespace AuthService.Infrastructure.Services
             var expiryHours = int.Parse(_config["Jwt:ExpiryHours"] ?? "8");
 
             var token = new JwtSecurityToken(
-                issuer:   _config["Jwt:Issuer"],
-                audience: _config["Jwt:Issuer"],
-                claims:   claims,
-                expires:  DateTime.UtcNow.AddHours(expiryHours),
+                issuer: _config["Jwt:Issuer"],
+                audience: _config["Jwt:Audience"],
+                claims: claims,
+                expires: DateTime.UtcNow.AddHours(expiryHours),
                 signingCredentials: credentials
             );
 

@@ -41,4 +41,4 @@ namespace ProductService.Infrastructure.Repositories
             await _context.SaveChangesAsync(cancellationToken);
         }
     }
-}
+}

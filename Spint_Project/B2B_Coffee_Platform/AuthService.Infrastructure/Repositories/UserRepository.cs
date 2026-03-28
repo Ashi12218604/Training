@@ -16,9 +16,11 @@ namespace AuthService.Infrastructure.Repositories
 
         public async Task<AppUser?> GetByEmailAsync(string email, CancellationToken cancellationToken)
         {
+            var normalizedEmail = email.ToLowerInvariant();
+
             return await _context.Users
                 .AsNoTracking()
-                .FirstOrDefaultAsync(u => u.Email == email.ToLowerInvariant(), cancellationToken);
+                .FirstOrDefaultAsync(u => u.Email == normalizedEmail, cancellationToken);
         }
 
         public async Task AddAsync(AppUser user, CancellationToken cancellationToken)
